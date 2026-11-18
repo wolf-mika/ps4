@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon-Nexus-Orbis - Gestion Firmware</title>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .panel {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        }
+        h2 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #0369a1;
+        }
+        .btn-back {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        .btn-back:hover {
+            background: #334155;
+        }
+        .nav-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <h2>Environnement Prêt</h2>
+        <p>Le dossier est configuré pour recevoir ton payload <strong>goldhen.bin</strong> et exécuter l'environnement de manière isolée.</p>
+        
+        <a href="#" class="btn" onclick="lancerPayloadLocally()">Lancer GoldHEN Local</a>
+        
+        <div class="nav-container">
+            <a href="../index.html" class="btn btn-back">← Retour au menu</a>
+            <a href="../tools/index.html" class="btn btn-back" style="border-color: #38bdf8; color: #38bdf8;">🛠️ Outils</a>
+        </div>
+    </div>
+
+    <script>
+        function lancerPayloadLocally() {
+            fetch('goldhen.bin')
+                .then(response => {
+                    if (!response.ok) throw new Error("goldhen.bin introuvable dans ce dossier.");
+                    return response.arrayBuffer();
+                })
+                .then(buffer => {
+                    alert("Payload goldhen.bin chargé avec succès (" + buffer.byteLength + " octets). Prêt pour l'injection !");
+                })
+                .catch(error => {
+                    alert("Erreur : " + error.message + "\nVérifie que ton fichier goldhen.bin est bien présent dans ce dossier.");
+                });
+        }
+    </script>
+
+</body>
+</html>

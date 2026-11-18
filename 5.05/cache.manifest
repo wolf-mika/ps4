@@ -1,0 +1,10 @@
+CACHE MANIFEST
+# v1.0 - Dragon-Nexus-Orbis 5.05 Offline Cache
+
+CACHE:
+index.html
+exploit.js
+goldhen.bin
+
+NETWORK:
+*

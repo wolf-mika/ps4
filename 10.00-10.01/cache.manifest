@@ -1,0 +1,9 @@
+CACHE MANIFEST
+# v1.0 - Dragon-Nexus-Orbis 10.00-10.01 Offline Cache
+
+CACHE:
+index.html
+goldhen.bin
+
+NETWORK:
+*

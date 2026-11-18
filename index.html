@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon-Nexus-Orbis - PS4 Exploit Host</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --shadow: rgba(56, 189, 248, 0.35);
+        }
+
+        body.theme-matrix {
+            --bg-color: #02220b;
+            --card-bg: #052e16;
+            --card-border: #064e3b;
+            --primary: #4ade80;
+            --primary-hover: #22c55e;
+            --shadow: rgba(74, 222, 128, 0.35);
+        }
+
+        body.theme-fire {
+            --bg-color: #1a0505;
+            --card-bg: #2b0b0b;
+            --card-border: #451a03;
+            --primary: #f87171;
+            --primary-hover: #ef4444;
+            --shadow: rgba(248, 113, 113, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px 20px;
+            transition: background 0.3s ease;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            width: 100%;
+            max-width: 920px;
+        }
+
+        .theme-selector {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        .theme-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--text-main);
+            transition: transform 0.2s;
+        }
+
+        .theme-dot:hover { transform: scale(1.15); }
+        .dot-cyber { background: #38bdf8; }
+        .dot-matrix { background: #4ade80; }
+        .dot-fire { background: #f87171; }
+
+        .logo-icon { font-size: 2.5rem; margin-bottom: 8px; }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--shadow);
+            transition: color 0.3s ease;
+        }
+
+        .subtitle { color: var(--text-sub); font-size: 0.9rem; }
+
+        .detect-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 14px 22px;
+            margin-top: 15px;
+            max-width: 920px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        .detect-info { text-align: left; font-size: 0.85rem; }
+        .detect-info strong { color: var(--primary); display: block; font-size: 1rem; }
+
+        .detect-btn {
+            background: var(--primary-hover);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .firmware-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            max-width: 920px;
+            width: 100%;
+            margin: 25px 0;
+        }
+
+        .fw-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 22px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: all 0.25s ease;
+        }
+
+        .fw-card:hover {
+            background: var(--card-border);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        .fw-card.detected {
+            border: 2px solid var(--primary);
+            background: var(--card-border);
+            box-shadow: 0 0 18px var(--shadow);
+        }
+
+        .fw-title { font-size: 1.15rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px; }
+        .fw-desc { font-size: 0.8rem; color: var(--text-sub); }
+
+        .actions-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .dns-btn { background-color: #d97706; color: #ffffff; }
+        .dns-btn:hover { background-color: #b45309; }
+
+        .tools-btn { background-color: var(--card-bg); color: var(--primary); border: 1px solid var(--primary); }
+        .tools-btn:hover { background-color: var(--card-border); color: var(--text-main); }
+
+        .footer { font-size: 0.8rem; color: var(--text-sub); text-align: center; margin-top: auto; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-header h2 { color: #fbbf24; font-size: 1.2rem; }
+        .close-btn { color: var(--text-sub); font-size: 1.5rem; font-weight: bold; cursor: pointer; background: none; border: none; }
+        .close-btn:hover { color: var(--text-main); }
+
+        .dns-list { list-style: none; margin: 15px 0; font-size: 0.9rem; line-height: 1.6; }
+        .dns-code {
+            background: #030712;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: var(--primary);
+            margin: 5px 0 12px 0;
+            border-left: 3px solid var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .firmware-container { grid-template-columns: repeat(2, 1fr); }
+            .theme-selector { position: relative; justify-content: center; margin-bottom: 15px; }
+        }
+
+        @media (max-width: 480px) {
+            .firmware-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body id="bodyRoot">
+
+    <div class="header">
+        <div class="theme-selector">
+            <div class="theme-dot dot-cyber" onclick="changerTheme('cyber')" title="Dragon Cyber"></div>
+            <div class="theme-dot dot-matrix" onclick="changerTheme('matrix')" title="Matrix Green"></div>
+            <div class="theme-dot dot-fire" onclick="changerTheme('fire')" title="Blood Fire"></div>
+        </div>
+
+        <div class="logo-icon">🐉</div>
+        <h1>DRAGON-NEXUS-ORBIS</h1>
+        <div class="subtitle">Hébergeur d'exploits PS4 multi-firmware &amp; Sécurité</div>
+    </div>
+
+    <div class="detect-banner">
+        <div class="detect-info">
+            <span style="color: var(--text-sub); font-size: 0.8rem;">Analyse de l'appareil...</span>
+            <strong id="detectedTitle">Navigateur PC / Mobile détecté — Sélectionnez manuellement</strong>
+        </div>
+        <a href="#" id="quickLaunchBtn" class="detect-btn" style="display: none;">Lancer l'exploit →</a>
+    </div>
+
+    <div class="firmware-container">
+        <a href="5.05/index.html" class="fw-card" id="card-5.05">
+            <div class="fw-title">Firmware 5.05</div>
+            <div class="fw-desc">Stable &amp; Rapide</div>
+        </a>
+        <a href="6.72/index.html" class="fw-card" id="card-6.72">
+            <div class="fw-title">Firmware 6.72</div>
+            <div class="fw-desc">Exploit WebKit / HEN</div>
+        </a>
+        <a href="7.55/index.html" class="fw-card" id="card-7.55">
+            <div class="fw-title">Firmware 7.55</div>
+            <div class="fw-desc">Multi-Payloads</div>
+        </a>
+        <a href="9.00/index.html" class="fw-card" id="card-9.00">
+            <div class="fw-title">Firmware 9.00</div>
+            <div class="fw-desc">USB / GoldHEN Recommandé</div>
+        </a>
+        <a href="9.50-9.60/index.html" class="fw-card" id="card-9.50-9.60">
+            <div class="fw-title">Firmware 9.50 - 9.60</div>
+            <div class="fw-desc">Exploit WebKit</div>
+        </a>
+        <a href="10.00-10.01/index.html" class="fw-card" id="card-10.00-10.01">
+            <div class="fw-title">Firmware 10.00 / 10.01</div>
+            <div class="fw-desc">Kernel / WebKit</div>
+        </a>
+        <a href="11.00/index.html" class="fw-card" id="card-11.00">
+            <div class="fw-title">Firmware 11.00</div>
+            <div class="fw-desc">PPPoE / Ethernet</div>
+        </a>
+        <a href="11.50-12.00/index.html" class="fw-card" id="card-11.50-12.00">
+            <div class="fw-title">Firmware 11.50 - 12.00</div>
+            <div class="fw-desc">Environnement Récent</div>
+        </a>
+        <a href="13.00-13.52/index.html" class="fw-card" id="card-13.00-13.52">
+            <div class="fw-title">Firmware 13.00 / 13.02 / 13.52</div>
+            <div class="fw-desc">Kernel / WebKit</div>
+        </a>
+        <a href="14.02/index.html" class="fw-card" id="card-14.02">
+            <div class="fw-title">Firmware 14.02</div>
+            <div class="fw-desc">Dernières versions</div>
+        </a>
+    </div>
+
+    <div class="actions-bar">
+        <button class="action-btn dns-btn" onclick="ouvrirGuide()">
+            ⚠️ Guide Configuration DNS (Anti-MàJ)
+        </button>
+        <a href="tools/index.html" class="action-btn tools-btn">
+            🛠️ Boîte à Outils (Payloads)
+        </a>
+    </div>
+
+    <div class="footer">
+        Created by: dragon111 - All Rights Reserved &copy; 2026
+    </div>
+
+    <div id="dnsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚠️ Bloquer les mises à jour Sony</h2>
+                <button class="close-btn" onclick="fermerGuide()">&times;</button>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">Configurez votre connexion réseau PS4 en mode <strong>Personnalisé</strong> et entrez ces paramètres DNS (Al-Azif) :</p>
+            <ul class="dns-list">
+                <li><strong>DNS Primaire :</strong>
+                    <div class="dns-code">62.210.38.117</div>
+                </li>
+                <li><strong>DNS Secondaire :</strong>
+                    <div class="dns-code">192.241.221.79</div>
+                </li>
+            </ul>
+            <p style="font-size: 0.8rem; color: var(--text-sub);">Note : Décochez également les téléchargements automatiques dans <em>Paramètres &gt; Système &gt; Téléchargements automatiques</em>.</p>
+        </div>
+    </div>
+
+    <script>
+        function changerTheme(theme) {
+            const body = document.getElementById('bodyRoot');
+            body.className = "";
+            if (theme === 'matrix') body.classList.add('theme-matrix');
+            else if (theme === 'fire') body.classList.add('theme-fire');
+            try { localStorage.setItem('dragon_orbis_theme', theme); } catch(e) {}
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                const savedTheme = localStorage.getItem('dragon_orbis_theme');
+                if (savedTheme) changerTheme(savedTheme);
+            } catch(e) {}
+
+            const ua = navigator.userAgent;
+            const titleEl = document.getElementById('detectedTitle');
+            const btnEl = document.getElementById('quickLaunchBtn');
+            const match = ua.match(/PlayStation 4\/([0-9]+\.[0-9]+)/i);
+
+            if (match && match[1]) {
+                const fw = match[1];
+                let targetFolder = "";
+
+                if (fw === "5.05") targetFolder = "5.05";
+                else if (fw === "6.72") targetFolder = "6.72";
+                else if (fw === "7.55") targetFolder = "7.55";
+                else if (fw === "9.00") targetFolder = "9.00";
+                else if (fw === "9.50" || fw === "9.60") targetFolder = "9.50-9.60";
+                else if (fw === "10.00" || fw === "10.01") targetFolder = "10.00-10.01";
+                else if (fw === "11.00") targetFolder = "11.00";
+                else if (parseFloat(fw) >= 11.50 && parseFloat(fw) <= 12.00) targetFolder = "11.50-12.00";
+                else if (fw === "13.00" || fw === "13.02" || fw === "13.50" || fw === "13.52") targetFolder = "13.00-13.52";
+                else if (fw === "14.02") targetFolder = "14.02";
+
+                if (targetFolder) {
+                    titleEl.innerText = "PS4 détectée — Firmware " + fw;
+                    btnEl.style.display = "inline-block";
+                    btnEl.href = targetFolder + "/index.html";
+                    btnEl.innerText = "Lancer le " + targetFolder + " →";
+                    const card = document.getElementById("card-" + targetFolder);
+                    if (card) card.classList.add("detected");
+                } else {
+                    titleEl.innerText = "PS4 détectée (Firmware " + fw + " non listé)";
+                }
+            }
+        });
+
+        function ouvrirGuide() {
+            document.getElementById('dnsModal').style.display = 'flex';
+        }
+
+        function fermerGuide() {
+            document.getElementById('dnsModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('dnsModal');
+            if (event.target === modal) modal.style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# v1.0 Dragon-Nexus-Orbis
+
+CACHE:
+index.html
+jb.html
+cache.html
+core.js
+int64.js
+jb.js
+mem.js
+ps4_offsets.js
+rpc_worker.js
+goldhen.bin
+
+NETWORK:
+*

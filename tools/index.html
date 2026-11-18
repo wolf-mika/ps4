@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boîte à Outils - Dragon-Nexus-Orbis</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0b0f19; color: #f8fafc; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 30px 20px; }
+        .header { text-align: center; margin-bottom: 25px; }
+        h1 { color: #38bdf8; font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; text-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+        .subtitle { color: #94a3b8; font-size: 0.85rem; }
+        
+        .tools-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .tool-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tool-card:hover { border-color: #38bdf8; background: #1f2937; transform: translateY(-2px); }
+        .tool-title { font-size: 1.05rem; font-weight: bold; color: #f8fafc; margin-bottom: 4px; }
+        .tool-desc { font-size: 0.75rem; color: #94a3b8; }
+
+        .binloader-box {
+            background: #111827;
+            border: 1px solid #38bdf8;
+            border-radius: 10px;
+            padding: 22px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+        }
+
+        .binloader-box h3 { color: #38bdf8; font-size: 1.1rem; margin-bottom: 10px; }
+        .binloader-box p { font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px; line-height: 1.4; }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px 14px;
+            background: #030712;
+            border: 1px solid #1f2937;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        input[type="file"] { display: none; }
+        .file-upload-btn {
+            background: #1f2937;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+        }
+        .file-upload-btn:hover { background: #374151; }
+
+        .send-btn {
+            background: #0284c7;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .send-btn:hover { background: #38bdf8; color: #0b0f19; }
+
+        .back-btn {
+            background: #1f2937;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #374151; color: #fff; }
+
+        #statusMsg {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        @media (max-width: 600px) {
+            .tools-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Boîte à Outils &amp; BinLoader</h1>
+        <div class="subtitle">Dragon-Nexus-Orbis • Utilitaires et Injection Réseau</div>
+    </div>
+
+    <div class="tools-container">
+        <div class="tool-card" onclick="lancerPayloadDirect('disable_updates.bin')">
+            <div class="tool-title">🚫 Disable Updates</div>
+            <div class="tool-desc">Bloquer les mises à jour Sony</div>
+        </div>
+        <div class="tool-card" onclick="lancerPayloadDirect('enable_updates.bin')">
+            <div class="tool-title">✅ Enable Updates</div>
+            <div class="tool-desc">Réactiver les mises à jour</div>
+        </div>
+        <div class="tool-card" onclick="lancerPayloadDirect('webrte.bin')">
+            <div class="tool-title">🎮 WebRTE</div>
+            <div class="tool-desc">Activer les mods de jeux</div>
+        </div>
+        <div class="tool-card" onclick="lancerPayloadDirect('app_dumper.bin')">
+            <div class="tool-title">📦 App Dumper</div>
+            <div class="tool-desc">Extraire un jeu en PKG</div>
+        </div>
+    </div>
+
+    <div class="binloader-box">
+        <h3>🚀 BinLoader Web (Injection Réseau Directe - Port 9090)</h3>
+        <p>Activez le <em>BinLoader Server</em> dans les paramètres GoldHEN de votre PS4, entrez son IP locale ci-dessous, choisissez votre fichier `.bin` et envoyez-le instantanément.</p>
+        
+        <div class="form-group">
+            <input type="text" id="ps4Ip" placeholder="IP de la PS4 (ex: 192.168.1.25)">
+            <label class="file-upload-btn" for="binFile">📂 Choisir un fichier .bin</label>
+            <input type="file" id="binFile" accept=".bin">
+        </div>
+        <div id="selectedFileName" style="font-size: 0.8rem; color: #38bdf8; margin-bottom: 15px;">Aucun fichier sélectionné</div>
+        
+        <button class="send-btn" onclick="envoyerPayloadReseau()">🚀 Envoyer le Payload vers la PS4</button>
+        <div id="statusMsg"></div>
+    </div>
+
+    <a href="../index.html" class="back-btn">← Retour au menu principal</a>
+
+    <script>
+        const fileInput = document.getElementById('binFile');
+        const fileNameDisplay = document.getElementById('selectedFileName');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.innerText = "Fichier sélectionné : " + fileInput.files[0].name;
+            } else {
+                fileNameDisplay.innerText = "Aucun fichier sélectionné";
+            }
+        });
+
+        function lancerPayloadDirect(nomFichier) {
+            const ip = document.getElementById('ps4Ip').value.trim();
+            if (!ip) {
+                alert("Veuillez d'abord entrer l'adresse IP de votre PS4 !");
+                return;
+            }
+            
+            statusMsg.style.color = "#38bdf8";
+            statusMsg.innerText = "Téléchargement et envoi de " + nomFichier + " en cours...";
+
+            fetch(nomFichier)
+                .then(response => {
+                    if (!response.ok) throw new Error("Fichier introuvable dans le dossier tools/");
+                    return response.arrayBuffer();
+                })
+                .then(buffer => {
+                    return fetch('http://' + ip + ':9090', {
+                        method: 'POST',
+                        body: buffer
+                    });
+                })
+                .then(res => {
+                    statusMsg.style.color = "#4ade80";
+                    statusMsg.innerText = "Succès ! Payload " + nomFichier + " envoyé à la PS4.";
+                })
+                .catch(err => {
+                    statusMsg.style.color = "#f87171";
+                    statusMsg.innerText = "Erreur : " + err.message + " (Vérifiez le fichier .bin dans tools/)";
+                });
+        }
+
+        function envoyerPayloadReseau() {
+            const ip = document.getElementById('ps4Ip').value.trim();
+            const file = fileInput.files[0];
+
+            if (!ip) {
+                alert("Veuillez entrer l'adresse IP de la PS4.");
+                return;
+            }
+            if (!file) {
+                alert("Veuillez sélectionner un fichier .bin à envoyer.");
+                return;
+            }
+
+            const statusMsg = document.getElementById('statusMsg');
+            statusMsg.style.color = "#38bdf8";
+            statusMsg.innerText = "Envoi du payload " + file.name + " vers la PS4 (" + ip + ")...\n";
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const binaryData = e.target.result;
+                fetch('http://' + ip + ':9090', {
+                    method: 'POST',
+                    body: binaryData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        statusMsg.style.color = "#4ade80";
+                        statusMsg.innerText = "Succès ! Le payload " + file.name + " a été injecté avec succès.";
+                    } else {
+                        throw new Error("Erreur de réponse de la PS4.");
+                    }
+                })
+                .catch(error => {
+                    statusMsg.style.color = "#f87171";
+                    statusMsg.innerText = "Erreur d'envoi : Vérifiez l'IP et que le BinLoader de GoldHEN est actif.";
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>
