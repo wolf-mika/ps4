@@ -4,7 +4,7 @@
 
 1. PRESENTATION DU PROJET ET CE QUI A ETE AJOUTE
 ----------------------------------------------------------------------
-L'hébergeur "Dragon-Nexus-Orbis" regroupe les exploits et payloads PS4 
+Ton hébergeur "Dragon-Nexus-Orbis" regroupe les exploits et payloads PS4 
 de manière centralisée, de la version 5.05 jusqu'aux firmwares récents 
 comme le firmware 14.02.
 
@@ -24,13 +24,9 @@ Ce qui a été configuré et ajouté :
 
 2. COMMENT ACCEDER A VOTRE HEBERGEUR EN LIGNE
 ----------------------------------------------------------------------
-est accessible 
+Une fois configuré sur GitHub Pages, ton site est accessible 
 publiquement à l'adresse officielle suivante :
 -> https://wolf-mika.github.io/ps4/
 
 Il te suffit de taper cette URL directement dans le navigateur 
 internet de ta console PS4 pour charger ton hébergeur.
-
-
-
-======================================================================
