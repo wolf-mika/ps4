@@ -5,7 +5,7 @@
 
 <div align="center">
 
-# Tutoriel complet : Dragon-Nexus-Orbis & GitHub (FW 14.02)
+# Tutoriel complet : Dragon-Nexus-Orbis & GitHub (FW 5.05-14.02)
 
 </div>
 
