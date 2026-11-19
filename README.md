@@ -1,6 +1,6 @@
 <p align="center">======================================================================
      TUTORIEL COMPLET : DRAGON-NEXUS-ORBIS & GITHUB (FW 14.02)
-======================================================================</p>
+======================================================================
 
 1. PRESENTATION DU PROJET ET CE QUI A ETE AJOUTE
 ----------------------------------------------------------------------
@@ -29,4 +29,4 @@ publiquement à l'adresse officielle suivante :
 -> https://wolf-mika.github.io/ps4/
 
 Il te suffit de taper cette URL directement dans le navigateur 
-internet de ta console PS4 pour charger ton hébergeur.
+internet de ta console PS4 pour charger ton hébergeur.</p>
