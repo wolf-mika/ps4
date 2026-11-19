@@ -21,7 +21,7 @@ Ce qui a été configuré et ajouté :
 
 <div align="center">
 
-Une fois configuré sur GitHub Pages, ton site est accessible publiquement à l'adresse officielle suivante :
+l'adresse officielle suivante :
 
 **[https://wolf-mika.github.io/ps4/](https://wolf-mika.github.io/ps4/)**
 
