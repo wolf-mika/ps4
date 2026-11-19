@@ -1,5 +1,8 @@
 <img width="1350" height="844" alt="Capture d&#39;écran 2026-11-19 022548" src="https://github.com/user-attachments/assets/191468be-e66d-4d1d-96ef-f74e0aa6167c" />
-<img width="1350" height="844" alt="Capture d&#39;écran 2026-11-19 022548" src="https://github.com/user-attachments/assets/d41ce272-8d22-4fc2-bd60-826b58a59559" />
+<img width="1091" height="691" alt="Capture d&#39;écran 2026-11-19 022612" src="https://github.com/user-attachments/assets/fc40931c-3945-496d-b135-8333e0648bd0" />
+<img width="1169" height="816" alt="Capture d&#39;écran 2026-11-19 022629" src="https://github.com/user-attachments/assets/3e152f58-1d8f-4d29-a5ec-3495f15efb3a" />
+
+
 <div align="center">
 
 # Tutoriel complet : Dragon-Nexus-Orbis & GitHub (FW 14.02)
